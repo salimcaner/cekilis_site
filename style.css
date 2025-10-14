@@ -1,0 +1,215 @@
+*{
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+:root {
+    /* CSS Değişkenleri: Bu renkleri daha sonra kolayca değiştirebiliriz */
+    --primary-color: #4A90E2;      /* Mavi (Butonlar, Vurgu) */
+    --secondary-color: #FFC107;    /* Sarı (Vurgu, Kazanan) */
+    --background-color: #121212;   /* Koyu Gri (Arka Plan) */
+    --text-color: #E0E0E0;         /* Açık Gri (Yazı Rengi) */
+    --card-background: #1E1E1E;    /* Daha Açık Koyu Gri (Kartlar/Kutular) */
+    --font-family: 'Arial', sans-serif;
+}
+
+body{
+    background:/*inear-gradient(rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0.75)),*/ url(picture/blurlu.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
+    background-position: center center;
+    color: var(--text-color);
+    font-family: var(--font-family);
+    min-height: 100vh;/*Tam Ekran Yüksekliğini Kapla*/
+    display: flex;  /*İçerikleri ortalamak için kullanılır.*/
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 40px;
+}
+
+.cekiliskutusu {    
+    background-color: #00336688; 
+    
+    /* GÖLGE AYARI: Bu gölgeyi arka plan şeffafken daha iyi görünür hale getiririz */
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.6); 
+
+    /* YENİ VE KRİTİK EKLENTİ: ARKA PLAN BLURLAMA */
+    backdrop-filter: blur(5px); /* Arkada kalan her şeyi 5 piksel bulanıklaştır */
+    -webkit-backdrop-filter: blur(5px); /* Safari desteği için */
+    border: 2px solid rgba(255, 255, 255, 0.18);
+    display: flex;  /*İçerikleri ortalamak için kullanılır.*/
+    flex-direction: column;
+    align-items: center;
+    border-radius: 15px;
+    width: 90%;
+    height: 90%;
+    max-width: 800px;
+    max-height: 800px;
+    padding: 10px;
+}
+
+h1{
+    color: #FFFFFF	;
+    margin-bottom: 30px;
+    font-size: 3.5rem;
+}
+#katilimcilar {
+    width: 100%;
+    min-height: 300px;
+    padding: 15px;
+    /* Kendi arka planını şeffaf yapıyoruz */
+    background-color: transparent; 
+    border: none; 
+    color: #ffffff;
+    font-size: 1.1rem;
+    resize: vertical;
+    transition: border-color 0.3s;
+}
+#katilimcilar::placeholder{
+    color: #FFFFFF;
+    opacity: 1;
+}
+#katilimcilar:-ms-input-placeholder {
+    /* Eski Internet Explorer (IE) için */
+     color: #FFFFFF;
+    opacity: 1; 
+}
+
+#katilimcilar::-webkit-input-placeholder {
+    /* Eski Webkit tabanlı tarayıcılar için */
+    color: #FFFFFF;
+    opacity: 1;
+}
+
+#katilimcilar::-moz-placeholder {
+    /* Mozilla Firefox için */
+    color: #FFFFFF;
+    opacity: 1; 
+}
+#katilimcilar:focus {
+    outline: none;
+    /* Odaklanınca kenarlığı daha görünür yap */
+}
+
+.butonlar-konteyner{
+    display: flex;
+    gap: 10px; /*butonlar arası boşluk*/
+    width: 100%;
+    height: 60px;
+    align-items: flex-end; /*alt tabana hizzalar */
+}
+
+#cekilisButonu{
+    background-color: #FFFFFF;
+    color: #003366	;
+    border: none;
+    padding: 12px 25px;
+    border-radius: 8px;
+    font-size: 1.5rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.1s, box-shadow 0.3s;
+    width: auto;
+    height: 50px;
+    flex-grow: 3;
+    flex-shrink: 0; /* Küçülmesini engelle, sabit kalsın */
+}
+#cekilisButonu:hover{
+    box-shadow: 0px 0px 5px #003366,0px 0px 30px #003366,0px 0px 90px #003366;
+}
+
+#yenile{
+    width: auto;
+    height: 50px; /* Kare olması için */
+    flex-grow: 1;
+    background-color: white; 
+    color: #003366;
+    border-radius: 8px; 
+    font-size: 1.5rem;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.1s, box-shadow 0.3s;
+    /* KRİTİK EKLENTİ: SİMGEYİ ORTALAMA */
+    display: flex; 
+    justify-content: center; /* Yatay ortala */
+    align-items: center;     /* Dikey ortala */
+    flex-shrink: 0; /* Küçülmesini engelle, sabit kalsın */
+}
+
+#yenile:hover{
+    box-shadow: 0px 0px 5px #003366,0px 0px 30px #003366,0px 0px 90px #003366;
+}
+.katilimcisayisi{
+    /* Gerekli görünüm stillerini koruyalım */
+    color: #FFFFFF;
+    background-color: #00336688; 
+    
+    /* GÖLGE AYARI: Bu gölgeyi arka plan şeffafken daha iyi görünür hale getiririz */
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.6); 
+
+    /* YENİ VE KRİTİK EKLENTİ: ARKA PLAN BLURLAMA */
+    backdrop-filter: blur(5px); /* Arkada kalan her şeyi 5 piksel bulanıklaştır */
+    -webkit-backdrop-filter: blur(5px); /* Safari desteği için */
+    border: 2px solid rgba(255, 255, 255, 0.18);
+    /* Metnin Dikey ve Yatayda Tam Ortalanması İçin Flexbox */
+    display: flex; 
+    justify-content: center; /* Yatay (horizontal) eksende ortala */
+    align-items: center;     /* Dikey (vertical) eksende ortala */
+    display: flex;  /*İçerikleri ortalamak için kullanılır.*/
+    flex-direction: column;
+    align-items: center;
+    border-radius: 15px;
+    width: 90%;
+    height: 100%;
+    max-width: 800px;
+    max-height: 800px;
+    padding: 10px;
+
+    /* Metin boyutları */
+    font-size: 1.5rem;
+    font-weight: 600;
+
+    /* Opsiyonel: Eğer H2 etiketinde padding kullanıyorsak, burayı dikkatlice ayarlamalıyız. */
+    padding: 0; 
+}
+.kazanan {    
+    /* Gerekli görünüm stillerini koruyalım */
+    color: #FFFFFF;
+    background-color: #00336688; 
+    
+    /* GÖLGE AYARI: Bu gölgeyi arka plan şeffafken daha iyi görünür hale getiririz */
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.6); 
+
+    /* YENİ VE KRİTİK EKLENTİ: ARKA PLAN BLURLAMA */
+    backdrop-filter: blur(5px); /* Arkada kalan her şeyi 5 piksel bulanıklaştır */
+    -webkit-backdrop-filter: blur(5px); /* Safari desteği için */
+    border: 2px solid rgba(255, 255, 255, 0.18);
+    /* Metnin Dikey ve Yatayda Tam Ortalanması İçin Flexbox */
+    display: flex; 
+    justify-content: center; /* Yatay (horizontal) eksende ortala */
+    align-items: center;     /* Dikey (vertical) eksende ortala */
+    display: flex;  /*İçerikleri ortalamak için kullanılır.*/
+    flex-direction: column;
+    align-items: center;
+    border-radius: 15px;
+    width: 90%;
+    height: 100%;
+    max-width: 800px;
+    max-height: 800px;
+    padding: 10px;
+
+    /* Metin boyutları */
+    font-size: 1.5rem;
+    font-weight: 600;
+
+    /* Opsiyonel: Eğer H2 etiketinde padding kullanıyorsak, burayı dikkatlice ayarlamalıyız. */
+    padding: 0; 
+}
+
+
+
+
+
