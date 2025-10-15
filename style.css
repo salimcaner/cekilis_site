@@ -1,26 +1,23 @@
 *{
     box-sizing: border-box;
     margin: 0;
-    padding: 0;
 }
 
 :root {
     /* CSS Değişkenleri: Bu renkleri daha sonra kolayca değiştirebiliriz */
-    --primary-color: #4A90E2;      /* Mavi (Butonlar, Vurgu) */
-    --secondary-color: #FFC107;    /* Sarı (Vurgu, Kazanan) */
-    --background-color: #121212;   /* Koyu Gri (Arka Plan) */
-    --text-color: #E0E0E0;         /* Açık Gri (Yazı Rengi) */
-    --card-background: #1E1E1E;    /* Daha Açık Koyu Gri (Kartlar/Kutular) */
+    --box-bg-color: #00336688;     /* Kutu Arka Planı (Mavi + Şeffaflık) */
+    --box-shadow: 0 4px 30px rgba(0, 0, 0, 0.6);
+    --box-border: 2px solid rgba(255, 255, 255, 0.18);
+    --button-color: #003366;       /* Buton Yazı Rengi */
     --font-family: 'Arial', sans-serif;
 }
 
 body{
-    background:/*inear-gradient(rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0.75)),*/ url(picture/blurlu.jpg);
+    background:url(picture/blurlu.jpg);
     background-repeat: no-repeat;
     background-size: cover;
     background-attachment: fixed;
     background-position: center center;
-    color: var(--text-color);
     font-family: var(--font-family);
     min-height: 100vh;/*Tam Ekran Yüksekliğini Kapla*/
     display: flex;  /*İçerikleri ortalamak için kullanılır.*/
@@ -31,30 +28,31 @@ body{
 }
 
 .cekiliskutusu {    
-    background-color: #00336688; 
-    
-    /* GÖLGE AYARI: Bu gölgeyi arka plan şeffafken daha iyi görünür hale getiririz */
+    background-color: var(--box-bg-color);
     box-shadow: 0 4px 30px rgba(0, 0, 0, 0.6); 
 
-    /* YENİ VE KRİTİK EKLENTİ: ARKA PLAN BLURLAMA */
     backdrop-filter: blur(5px); /* Arkada kalan her şeyi 5 piksel bulanıklaştır */
     -webkit-backdrop-filter: blur(5px); /* Safari desteği için */
-    border: 2px solid rgba(255, 255, 255, 0.18);
-    display: flex;  /*İçerikleri ortalamak için kullanılır.*/
-    flex-direction: column;
-    align-items: center;
+    border: var(--box-border);
     border-radius: 15px;
+    
     width: 90%;
     height: 90%;
     max-width: 800px;
     max-height: 800px;
     padding: 10px;
+
+    display: flex;  /*İçerikleri ortalamak için kullanılır.*/
+    flex-direction: column;
+    align-items: center;
+   
 }
 
 h1{
     color: #FFFFFF	;
     margin-bottom: 30px;
     font-size: 3.5rem;
+    text-align: center;
 }
 #katilimcilar {
     width: 100%;
@@ -239,8 +237,12 @@ h1{
     /* Opsiyonel: Eğer H2 etiketinde padding kullanıyorsak, burayı dikkatlice ayarlamalıyız. */
     padding: 0; 
 }
-
-
+h2{
+    color: #FFFFFF	;
+    margin-bottom: 30px;
+    font-size: 1.7rem;
+    text-align: center;
+}
 
 
 
