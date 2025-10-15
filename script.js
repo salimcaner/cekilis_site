@@ -4,7 +4,7 @@ const cekilisButonu = document.querySelector('#cekilisButonu');
 const yenilemeButonu = document.querySelector('#yenile');
 const sonuc = document.querySelector('#sonuc');
 const katilimci_sayisi = document.querySelector('#katilimci_sayisi');
-const kazananSayisiInput = document.querySelector('kazananSayisi');
+const kazananSayisiInput = document.querySelector('#kazananSayisi');
 // Konsol çıktısı
 console.log("Bütün veriler alındı: ", katilimciAlani, cekilisButonu, sonuc);
 
