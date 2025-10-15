@@ -11,39 +11,33 @@ console.log("Bütün veriler alındı: ", katilimciAlani, cekilisButonu, sonuc);
 // Global değişken tanımlama (intervalId'nin scope dışından erişilebilir olması için)
 let intervalId;
 
-// ** Adım 2: Çekiliş İşlemi Fonksiyonu **
+function getTemizKatilimcilar(){
+    const hamKatilimcilar = katilimciAlani.value;
+    const sonKatilimcilistesi = hamKatilimcilar
+        .split('\n')
+        .map(isim => isim.trim())
+        .filter(isim => isim.length > 0);
+    return sonKatilimcilistesi;
+}
+
+
+function updateKatilimciSayisi(){
+    const katilimcilistesi = getTemizKatilimcilar();
+    katilimci_sayisi.textContent = `Katılımcı Sayısı: ${katilimcilistesi.length}`;
+}
+
 function cekilisYap() {
-    // Çekiliş butonunu devre dışı bırak
+    const sonKatilimcilistesi = getTemizKatilimcilar();
+    const katilimciSayisi = sonKatilimcilistesi.length;
     cekilisButonu.disabled = true;
 
-    // Kullanıcının girdiği ham verileri alma 
-    const hamKatilimcilar = katilimciAlani.value;
-
-    // 1. Verileri böl ve listele
-    let katilimcilistesi = hamKatilimcilar.split('\n');
-    console.log("Oluşturulan liste:", katilimcilistesi);
-
-    // 2. Listedeki boşlukları silme (trim)
-    const temizlenmisListe = katilimcilistesi.map(isim => isim.trim());
-    console.log("Temizlenmiş liste:", temizlenmisListe);
-
-    // 3. Boş satırları filtreleme
-    const sonKatilimcilistesi = temizlenmisListe.filter(isim => isim.length > 0);
-    console.log("Listenin son Hali: ", sonKatilimcilistesi);
-
-    const katilimciSayisi = sonKatilimcilistesi.length;
-
-    // Katılımcı kontrolü
     if (katilimciSayisi === 0) {
         sonuc.textContent = "Hata! Lütfen çekilişe katılanların isimlerini giriniz.";
         cekilisButonu.disabled = false;
         return; // Fonksiyonu burada durdurur.
     }
 
-    // Katılımcı sayısını güncelle
-    katilimci_sayisi.textContent = `Katılımcı Sayısı: ${katilimciSayisi}`;
-
-    const hedefKazananSayisi = parseInt(kazananSayisiInput.value);
+    const hedefKazananSayisi = parseInt(kazananSayisiInput.value, 10);
 
     if(isNaN(hedefKazananSayisi)||hedefKazananSayisi<1){
         sonuc.textContent ="HATA: Lütfen çekiliş için geçerli (1 veya daha fazla)kazanan sayısı belirleyiniz.";
@@ -56,38 +50,58 @@ function cekilisYap() {
         cekilisButonu.disabled = false;
         return;
     }
+    
     cekilisButonu.disabled = true;
     // Rastgele seçimi başlat (interval)
+
     intervalId = setInterval(() => {
         const rastgeleIndis = Math.floor(Math.random() * katilimciSayisi);
         const geciciKazanan = sonKatilimcilistesi[rastgeleIndis];
-
         sonuc.textContent = ` Seçiliyor: ${geciciKazanan} `;
     }, 50);
 
     // Belirli bir süre sonra durdur ve asıl kazananı belirle (timeout)
     setTimeout(() => {
         clearInterval(intervalId); // Interval'ı durdur
-
+        console.log("Hedef Kazanan Sayısı:", hedefKazananSayisi);
         // ASIL KAZANANI SEÇ
-        const asilIndis = Math.floor(Math.random() * katilimciSayisi);
-        const asilKazanan = sonKatilimcilistesi[asilIndis];
-        sonuc.textContent = ` KAZANAN: ${asilKazanan} `;
+        let cekilebilirListe = [...sonKatilimcilistesi]; //orijinal listeyi kopyalana
+        let kazananlar = [];
+
+        for(let i = 0; i<hedefKazananSayisi; i++){
+            const rastgeleIndis = Math.floor(Math.random()*cekilebilirListe.length);
+
+            kazananlar.push(cekilebilirListe[rastgeleIndis]);
+
+            cekilebilirListe.splice(rastgeleIndis,1);
+        }
+        console.log("Seçilen Kazananlar Dizisi:", kazananlar);
+
+        let sonucMetni;
+        if(kazananlar.length === 1){
+            sonucMetni = `KAZANAN: ${kazananlar[0]}`;
+        } else {
+            sonucMetni = `KAZANAN: ${kazananlar.join(', ')}`;
+        }
+        console.log("Nihai Sonuç Metni:", sonucMetni);
+        sonuc.textContent  = sonucMetni;
 
         // Butonu tekrar etkinleştir
         cekilisButonu.disabled = false;
     }, 5000);
 }
 
-// ** Adım 3: Uygulama Sıfırlama Fonksiyonu **
 function sifirlauygulama() {
     katilimciAlani.value = "";
-    sonuc.textContent = ""; // Sonucu da temizle (opsiyonel ama mantıklı)
-    katilimci_sayisi.textContent = "Katılımcı Sayısı: 0"; // Sayacı da sıfırla
-    // Butonu varsayılan olarak etkinleştir (çekiliş yapılmamışsa zaten etkin olmalı)
+    sonuc.textContent = "Henüz Kazanan Belirlenmedi!";
+    katilimci_sayisi.textContent = "Katılımcı Sayısı: 0"; 
+    kazananSayisiInput.value = "1";
     cekilisButonu.disabled = false;
+    clearInterval(intervalId);
 }
 
-// ** Adım 4: Butonlara Fonksiyon Ekleme (Event Listeners) **
+katilimciAlani.addEventListener('input', updateKatilimciSayisi);
 cekilisButonu.addEventListener('click', cekilisYap);
 yenilemeButonu.addEventListener('click', sifirlauygulama);
+
+document.addEventListener('DOMContentLoaded', updateKatilimciSayisi);
